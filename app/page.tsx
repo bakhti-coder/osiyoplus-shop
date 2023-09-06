@@ -8,9 +8,7 @@ import axios from "axios";
 import { ProductsType } from "./interface/productsType";
 
 async function getProducts() {
-  const { data } = await axios.get(
-    "https://64de00bd825d19d9bfb1db68.mockapi.io/products"
-  );
+  const { data } = await axios.get("http://172.20.10.3:3333/getproduct");
 
   return data;
 }
@@ -112,7 +110,7 @@ export default async function Home() {
           </div>
           <div className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
             {data.slice(0, 8).map((product, idx) => (
-              <Link key={idx} href={`/products/${product.id}`}>
+              <Link key={idx} href={`/products/${product.pro_id}`}>
                 <div className="  border border-lightGray p-6 rounded-lg hover:scale-105 transition-transform ease-out duration-200">
                   <img
                     className="h-40 rounded w-full object-cover object-center mb-6"
@@ -120,13 +118,13 @@ export default async function Home() {
                     alt="content"
                   />
                   <div className="font-semibold items-center mt-4 mb-1">
-                    <p className="w-full truncate my-2">{product.title}</p>
+                    <p className="w-full truncate my-2">{product.pro_name}</p>
                     <p className="tracking-widest text-indigo-500 text-xs font-medium title-font">
-                      {product.price} so'm
+                      {product.pro_price} so'm
                     </p>
                   </div>
                   <p className="leading-relaxed text-base line-clamp-2">
-                    {product.title}
+                    {product.pro_description}
                   </p>
                 </div>
               </Link>

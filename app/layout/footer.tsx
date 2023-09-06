@@ -17,7 +17,7 @@ export default function Footer() {
                   className="mb-2 hover:text-sky-500 transition-colors"
                   href="tel:+998983084664"
                 >
-                  +998(98)308-46-64
+                  +998(99)308-46-64
                 </Link>
                 <Link
                   href="tel:+998995053333"

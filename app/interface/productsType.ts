@@ -1,8 +1,8 @@
 export interface ProductsType {
-    id: string,
-    title: string,
-    description: string,
-    price: number,
+    pro_id: string,
+    pro_name: string,
+    pro_description: string,
+    pro_price: string,
     category: string,
-    image: string
+    pro_img: string
 }
