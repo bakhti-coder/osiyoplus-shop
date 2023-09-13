@@ -190,7 +190,8 @@ export default function Products() {
                     <div className="font-semibold items-center mt-4 mb-1">
                       <p className="w-full truncate my-2">{data.pro_name}</p>
                       <p className="tracking-widest text-indigo-500 text-xs font-medium title-font">
-                        {data.pro_price} so'm
+                        {data.pro_price}
+                        {` so'm`}
                       </p>
                     </div>
                     <p className="leading-relaxed text-base line-clamp-2">
@@ -230,7 +231,7 @@ export default function Products() {
                             {product.pro_name}
                           </p>
                           <p className="tracking-widest text-indigo-500 text-xs font-medium title-font">
-                            {product.pro_price} so'm
+                            {product.pro_price} {`so'm`}
                           </p>
                         </div>
                         <p className="leading-relaxed text-base line-clamp-2">

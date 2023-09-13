@@ -120,7 +120,7 @@ export default async function Home() {
                   <div className="font-semibold items-center mt-4 mb-1">
                     <p className="w-full truncate my-2">{product.pro_name}</p>
                     <p className="tracking-widest text-indigo-500 text-xs font-medium title-font">
-                      {product.pro_price} so'm
+                      {product.pro_price} {`so'm`}
                     </p>
                   </div>
                   <p className="leading-relaxed text-base line-clamp-2">
