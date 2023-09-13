@@ -15,27 +15,29 @@ export default function Footer() {
               <p className="text-sm ps-[10px] flex flex-col">
                 <Link
                   className="mb-2 hover:text-sky-500 transition-colors"
-                  href="tel:+998983084664"
+                  href="tel:+998905556494"
                 >
-                  +998(99)308-46-64
+                  +998(90)555-64-94
                 </Link>
                 <Link
-                  href="tel:+998995053333"
+                  href="tel:+998933869229"
                   className="hover:text-sky-500 transition-colors mb-2"
                 >
-                  +998(99)505-33-33
+                  +998(93)386-92-29
                 </Link>
                 <Link
-                  href="tel:+998994043333"
+                  href="tel:+998940137300"
                   className="hover:text-sky-500 transition-colors mb-2"
                 >
-                  +998(99)404-33-33
+                  +998(94)013-73-00
                 </Link>
               </p>
             </li>
             <li className="flex">
               <Link href="/" className="flex items-start mt-4">
-                <p className="text-sm ps-[10px] hover:text-sky-500 transition-colors mb-2">www.osiyoplus.uz</p>
+                <p className="text-sm ps-[10px] hover:text-sky-500 transition-colors mb-2">
+                  www.osiyoplus.uz
+                </p>
               </Link>
             </li>
           </ul>
@@ -71,7 +73,9 @@ export default function Footer() {
       </div>
       <div className="container max-w-1200 pb-5">
         <hr className="h-px mt-8 bg-gray-400 border-0" />
-        <p className="text-gray-400 text-xs text-center mt-5 ">© 2023 Barcha huquqlar himoyalangan</p>
+        <p className="text-gray-400 text-xs text-center mt-5 ">
+          © 2023 Barcha huquqlar himoyalangan
+        </p>
       </div>
     </footer>
   );

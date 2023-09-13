@@ -117,7 +117,7 @@
 //       <div className="flex justify-start flex-wrap md:flex-nowrap ">
 //         <div className="max-w-[600px]">
 //           <img
-//             src={`http://172.20.10.3:3333${data.pro_img}`}
+//             src={`http://localhost:3333${data.pro_img}`}
 //             alt="image"
 //             style={{ width: "1200px", height: "500px", objectFit: "cover" }}
 //           />
@@ -150,7 +150,7 @@
 //               <div className="  border border-lightGray p-6 rounded-lg hover:scale-105 transition-transform ease-out duration-200">
 //                 <img
 //                   className="h-40 rounded w-full object-cover object-center mb-6"
-//                   src={`http://172.20.10.3:3333${product.pro_img}`}
+//                   src={`http://localhost:3333${product.pro_img}`}
 //                   alt="content"
 //                 />
 

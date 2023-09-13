@@ -8,7 +8,7 @@ import axios from "axios";
 import { ProductsType } from "./interface/productsType";
 
 async function getProducts() {
-  const { data } = await axios.get("http://172.20.10.3:3333/getproduct");
+  const { data } = await axios.get("http://localhost:3333/getproduct");
 
   return data;
 }
@@ -30,7 +30,7 @@ export default async function Home() {
               Osiyo plus
             </h1>
             <p className="text-base font-medium max-w-full sm:max-w-[600px] md:max-w-[800px] mx-auto underline">
-              <Link href="/">www.osiyoplus.com</Link>
+              <Link href="/">www.osiyoplus.uz</Link>
             </p>
           </div>
         </Parallax>
@@ -111,10 +111,10 @@ export default async function Home() {
           <div className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
             {data.slice(0, 8).map((product, idx) => (
               <Link key={idx} href={`/products/${product.pro_id}`}>
-                <div className="  border border-lightGray p-6 rounded-lg hover:scale-105 transition-transform ease-out duration-200">
+                <div className="bg-gray  h-full border border-lightGray hover:shadow-xl p-6 rounded-lg hover:scale-105 transition-transform ease-out duration-200">
                   <img
                     className="h-40 rounded w-full object-cover object-center mb-6"
-                    src="/source/image/shop/fashion-shoes-and-sneakers_1203-7529.avif"
+                    src={`http://localhost:3333${product.pro_img}`}
                     alt="content"
                   />
                   <div className="font-semibold items-center mt-4 mb-1">
