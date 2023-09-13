@@ -2,17 +2,59 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Link from "next/link";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { FreeMode } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/free-mode";
 
 export default function Products() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
-  const [categoryProduct, setCategoryProduct] = useState();
+  // const [categoryProduct, setCategoryProduct] = useState();
   const [category, setCategory] = useState([]);
   const [ctgrId, setCtgrId] = useState();
   const [categoryIdData, setCatgeroyIdData] = useState(null);
   const [ctgTru, setCtgTru] = useState(false);
   const [ctgrName, setCtgrName] = useState();
+  const [swiper, setSwiper] = useState(null);
+
+  ////////////  Swiper settings  ////////////
+  useEffect(() => {
+    if (swiper) {
+      swiper.update(); // Swiper.js-ni yangilab qolish
+    }
+  }, [swiper]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (swiper) {
+        swiper.params.slidesPerView = calculateSlidesPerView();
+        swiper.update(); // Swiper.js-ni yangilab qolish
+      }
+    };
+
+    const calculateSlidesPerView = () => {
+      // Responsive slayd sonlarini o'zgartiring
+      if (window.innerWidth >= 768) {
+        return 4;
+      } else if (window.innerWidth >= 480) {
+        return 3;
+      }
+      return 2;
+    };
+
+    if (swiper) {
+      swiper.params.slidesPerView = calculateSlidesPerView();
+      swiper.update(); // Swiper.js-ni yangilab qolish
+    }
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [swiper]);
 
   //////////// Get Products ////////////
   useEffect(() => {
@@ -56,6 +98,7 @@ export default function Products() {
     }
   };
 
+  //
   return (
     <main className="container max-w-1200 ">
       <section>
@@ -88,25 +131,50 @@ export default function Products() {
               />
             </div>
           </form>
+
           <div>
-            <h1 className="py-5 text-3xl text-gray-950 font-semibold">
+            <h1 className="py-5 text-xl md:text-3xl text-gray-950 font-semibold">
               {`Categorya bo'yicha`}
             </h1>
-            <ul className="flex justify-between flex-wrap ">
+            <ul className="lg:flex justify-between flex-wrap hidden  ">
               {category.map((category, idx) => (
                 <li
                   key={idx}
                   onClick={(e) => {
                     handleCategory(category.category_id);
                     setCtgrId(category.category_id);
-                    setCtgrName(category.category_name)
+                    setCtgrName(category.category_name);
                   }}
-                  className="bg-white border  active:border-blue-600 border-blue-800 hover:bg-blue-50 py-1 px-2.5 rounded-full font-normal cursor-pointer lg:mx-0 mx-2 mt-5 lg:my-0 my-2 "
+                  className="hidden lg:flex bg-white border  active:border-blue-600 border-blue-800 hover:bg-blue-50 py-1 px-2.5 rounded-full font-normal cursor-pointer lg:mx-0 mx-2 mt-5 lg:my-0 my-2 "
                 >
                   {category.category_name}
                 </li>
               ))}
             </ul>
+            <div className="lg:hidden flex">
+              <Swiper
+                freeMode={true}
+                grabCursor={true}
+                modules={[FreeMode]}
+                slidesPerView={4}
+                spaceBetween={20}
+                onSwiper={(swiper) => setSwiper(swiper)}
+              >
+                {category.map((category, idx) => (
+                  <SwiperSlide
+                    key={idx}
+                    className="bg-white border  active:border-blue-600 border-blue-800 hover:bg-blue-50 py-1 px-2.5 rounded-full font-normal cursor-pointer truncate  text-center"
+                    onClick={(e) => {
+                      handleCategory(category.category_id);
+                      setCtgrId(category.category_id);
+                      setCtgrName(category.category_name);
+                    }}
+                  >
+                    <p>{category.category_name}</p>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </div>
           </div>
           <h1 className="text-lg text-black my-4 lg:mx-0 mx-5">{ctgrName}</h1>
           {ctgTru ? (
@@ -137,7 +205,7 @@ export default function Products() {
           )}
 
           <hr className="bg-black w-full my-10" />
-          <h1 className="my-10 text-3xl text-gray-950 font-semibold">
+          <h1 className="my-10 text-xl md:text-3xl text-gray-950 font-semibold">
             Hamma mahsulotlar
           </h1>
           <div className="grid grid-cols-1 justify-center sm:justify-start sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-[30px] ">

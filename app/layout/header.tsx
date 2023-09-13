@@ -10,6 +10,7 @@ export default function Header() {
     { name: "Asosiy", link: "/" },
     { name: "Mahsulotlarimiz", link: "/products" },
     { name: "Biz haqimizda", link: "/about" },
+    { name: "Faq", link: "/faq" },
   ];
 
   const [open, setOpen] = useState(false);
@@ -35,13 +36,14 @@ export default function Header() {
             <Hamburger toggled={open} toggle={setOpen} />
           </div>
           <ul
-            className={`md:flex md:items-center md:pb-0  pb-12 absolute md:static md:bg-white bg-white z-10 md:z-auto left-0 w-full h-full md:h-[0] md:w-auto pl-0 transition-all duration-500 ease-in ${open ? "top-10 " : "top-[-1000px]"
-              }`}
+            className={`md:flex md:items-center md:pb-0  pb-12 absolute md:static md:bg-white bg-white z-10 md:z-auto left-0 w-full h-full md:h-[0] md:w-auto pl-0 transition-all duration-500 ease-in ${
+              open ? "top-10 " : "top-[-1000px]"
+            }`}
           >
             <hr className="h-px mt-5 bg-gray-200 border-0" />
             {Links.map((link) => (
               <li
-                onClick={e => setOpen(false)}
+                onClick={(e) => setOpen(false)}
                 key={link.name}
                 className={`ps-5 text-base  md:ml-8 md:my-0 my-7 `}
               >
@@ -55,7 +57,6 @@ export default function Header() {
             ))}
           </ul>
         </div>
-
       </nav>
     </header>
   );
