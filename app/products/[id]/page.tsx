@@ -9,6 +9,7 @@ import ReactModal from "react-modal";
 import Link from "next/link";
 
 const SingleProduct = () => {
+  const token = localStorage.getItem("token");
   const [products, setProduct] = useState<ProductsType>();
   const [pr, setPr] = useState<any>();
   const [message, setMessage] = useState<boolean>(false);
@@ -41,17 +42,27 @@ const SingleProduct = () => {
   };
 
   const sendData = (e: React.FormEvent<HTMLFormElement>) => {
+    console.log(token);
+
     e.preventDefault();
     try {
       axios
-        .post("http://localhost:3333/post_order", {
-          order_name: sendProduct?.pro_name,
-          order_price: sendProduct?.pro_price,
-          order_description: sendProduct?.pro_description,
-          order_img: sendProduct?.pro_img,
-          user_name: sendUsername,
-          user_phone: sendUserPhoneNumber,
-        })
+        .post(
+          "http://10.10.2.230:1010/post_order",
+          {
+            order_name: sendProduct?.pro_name,
+            order_price: sendProduct?.pro_price,
+            order_description: sendProduct?.pro_description,
+            order_img: sendProduct?.pro_img,
+            user_name: sendUsername,
+            user_phone: sendUserPhoneNumber,
+          },
+          {
+            headers: {
+              Authorization: `Basic ${token}`,
+            },
+          }
+        )
         .then((res) => {
           setMessage(true);
           setTimeout(() => {
@@ -65,6 +76,8 @@ const SingleProduct = () => {
           });
         });
     } catch (error) {
+      console.log(error);
+
       alert("Serverda xatoloik yuz berdi");
       setButtonLoader(false);
       setOrderMessage({
@@ -79,7 +92,7 @@ const SingleProduct = () => {
   useEffect(() => {
     const getProducts = async () => {
       try {
-        const { data } = await axios.get("http://localhost:3333/getproduct");
+        const { data } = await axios.get("http://10.10.2.230:1010/getproduct");
       } catch (error) {
         console.log(error);
       }
@@ -92,7 +105,7 @@ const SingleProduct = () => {
   useEffect(() => {
     async function getData() {
       try {
-        const res = await fetch(`http://localhost:3333/get_pro_id/${id}`);
+        const res = await fetch(`http://10.10.2.230:1010/get_pro_id/${id}`);
         const product = await res.json();
         setProduct(product);
         setProductLoading(false);
@@ -108,8 +121,9 @@ const SingleProduct = () => {
   useEffect(() => {
     async function getData() {
       try {
-        const res = await fetch(`http://localhost:3333/getproduct`);
+        const res = await fetch(`http://10.10.2.230:1010/getproduct`);
         const product = await res.json();
+
         setPr(product);
         setProductLoading(true);
       } catch (error) {
@@ -217,7 +231,7 @@ const SingleProduct = () => {
           <div className="flex justify-start flex-wrap md:flex-nowrap ">
             <div className="max-w-[600px]">
               <img
-                src={`http://localhost:3333${products?.pro_img}`}
+                src={`http://10.10.2.230:1010${products?.pro_img}`}
                 alt="image"
                 style={{ width: "1200px", height: "500px", objectFit: "cover" }}
               />
@@ -257,7 +271,7 @@ const SingleProduct = () => {
                   <div className="hover:shadow-xl bg-gray lg:mx-0 mx-5  border border-lightGray p-6 rounded-lg hover:scale-105 transition-transform ease-out duration-200 h-full">
                     <img
                       className="h-40 rounded w-full object-cover object-center mb-6"
-                      src={`http://localhost:3333${data.pro_img}`}
+                      src={`http://10.10.2.230:1010${data.pro_img}`}
                       alt="image"
                     />
                     <div className="font-semibold items-center mt-4 mb-1">

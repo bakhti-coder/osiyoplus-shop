@@ -25,9 +25,9 @@ const config: Config = {
       backgroundColor: {
         secondary: "#333",
         lights: "#F3F1EC",
-        gray: '#F5F5F5',
-        line: '#7F7F7F',
-        orange: '#F49100'
+        gray: "#F5F5F5",
+        line: "#7F7F7F",
+        orange: "#F49100",
       },
 
       borderColor: {
@@ -43,6 +43,9 @@ const config: Config = {
         dark: "#2D4162",
         lightGray: "#F2F4F7",
         light: "#959FB0",
+        success: "#219653",
+        danger: "#D34053",
+        error: "#ff3333",
       },
     },
   },

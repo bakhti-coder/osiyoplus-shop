@@ -56,5 +56,20 @@ body::-webkit-scrollbar {
   ); /* Orqa fonni xohlagan rangga o'zgartiring */
   backdrop-filter: blur(5px); /* Blur efekti */
   z-index: 9999; /* Modalni orqasiga qo'yib chiqish */
-  
+}
+
+.float-label-input {
+  margin: 20px 0;
+}
+
+.float-label-input:focus-within label,
+.float-label-input input:not(:placeholder-shown) + label {
+  transform: translateY(-1.5rem) scale(0.75);
+  background-color: white;
+}
+
+.user_modal {
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.04);
+  backdrop-filter: blur(100px);
 }

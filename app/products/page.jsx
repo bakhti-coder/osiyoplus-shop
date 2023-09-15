@@ -60,7 +60,7 @@ export default function Products() {
   useEffect(() => {
     const getProducts = async () => {
       try {
-        const { data } = await axios.get("http://localhost:3333/getproduct");
+        const { data } = await axios.get("http://10.10.2.230:1010/getproduct");
         setProducts(data);
       } catch (error) {
         console.log(error);
@@ -75,7 +75,7 @@ export default function Products() {
   useEffect(() => {
     const getCategory = () => {
       try {
-        axios.get("http://localhost:3333/get_category").then((res) => {
+        axios.get("http://10.10.2.230:1010/get_category").then((res) => {
           setCategory(res.data);
         });
       } catch (error) {
@@ -89,7 +89,7 @@ export default function Products() {
   const handleCategory = async (id) => {
     try {
       const response = await axios.get(
-        `http://localhost:3333/get_category_with_products/${id}`
+        `http://10.10.2.230:1010/get_category_with_products/${id}`
       );
       setCatgeroyIdData(response.data.Products);
       setCtgTru(true);
@@ -107,7 +107,7 @@ export default function Products() {
             <div className="relative w-full">
               <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                 <svg
-                  className="w-4 h-4 text-gray-500 dark:text-gray-400"
+                  className="w-4 h-4 text-gray-500"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -184,7 +184,7 @@ export default function Products() {
                   <div className="hover:shadow-xl bg-gray lg:mx-0 mx-5  border border-lightGray p-6 rounded-lg hover:scale-105 transition-transform ease-out duration-200 h-full">
                     <img
                       className="h-40 rounded w-full object-cover object-center mb-6"
-                      src={`http://localhost:3333${data.pro_img}`}
+                      src={`http://10.10.2.230:1010${data.pro_img}`}
                       alt="image"
                     />
                     <div className="font-semibold items-center mt-4 mb-1">
@@ -223,7 +223,7 @@ export default function Products() {
                       <div className="hover:shadow-xl lg:mx-0 mx-5 bg-gray  border border-lightGray p-6 rounded-lg hover:scale-105 transition-transform ease-out duration-200 h-full">
                         <img
                           className="h-40 rounded w-full object-cover object-center mb-6"
-                          src={`http://localhost:3333${product.pro_img}`}
+                          src={`http://10.10.2.230:1010${product.pro_img}`}
                           alt="image"
                         />
                         <div className="font-semibold items-center mt-4 mb-1">
