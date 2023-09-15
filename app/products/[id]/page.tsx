@@ -48,7 +48,7 @@ const SingleProduct = () => {
     try {
       axios
         .post(
-          "http://10.10.2.230:1010/post_order",
+          "http://localhost:1010/post_order",
           {
             order_name: sendProduct?.pro_name,
             order_price: sendProduct?.pro_price,
@@ -92,7 +92,7 @@ const SingleProduct = () => {
   useEffect(() => {
     const getProducts = async () => {
       try {
-        const { data } = await axios.get("http://10.10.2.230:1010/getproduct");
+        const { data } = await axios.get("http://localhost:1010/getproduct");
       } catch (error) {
         console.log(error);
       }
@@ -105,7 +105,7 @@ const SingleProduct = () => {
   useEffect(() => {
     async function getData() {
       try {
-        const res = await fetch(`http://10.10.2.230:1010/get_pro_id/${id}`);
+        const res = await fetch(`http://localhost:1010/get_pro_id/${id}`);
         const product = await res.json();
         setProduct(product);
         setProductLoading(false);
@@ -121,7 +121,7 @@ const SingleProduct = () => {
   useEffect(() => {
     async function getData() {
       try {
-        const res = await fetch(`http://10.10.2.230:1010/getproduct`);
+        const res = await fetch(`http://localhost:1010/getproduct`);
         const product = await res.json();
 
         setPr(product);
@@ -231,7 +231,7 @@ const SingleProduct = () => {
           <div className="flex justify-start flex-wrap md:flex-nowrap ">
             <div className="max-w-[600px]">
               <img
-                src={`http://10.10.2.230:1010${products?.pro_img}`}
+                src={`http://localhost:1010${products?.pro_img}`}
                 alt="image"
                 style={{ width: "1200px", height: "500px", objectFit: "cover" }}
               />
@@ -271,7 +271,7 @@ const SingleProduct = () => {
                   <div className="hover:shadow-xl bg-gray lg:mx-0 mx-5  border border-lightGray p-6 rounded-lg hover:scale-105 transition-transform ease-out duration-200 h-full">
                     <img
                       className="h-40 rounded w-full object-cover object-center mb-6"
-                      src={`http://10.10.2.230:1010${data.pro_img}`}
+                      src={`http://localhost:1010${data.pro_img}`}
                       alt="image"
                     />
                     <div className="font-semibold items-center mt-4 mb-1">

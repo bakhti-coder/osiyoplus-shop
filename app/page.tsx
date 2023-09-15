@@ -8,7 +8,7 @@ import axios from "axios";
 import { ProductsType } from "./interface/productsType";
 
 async function getProducts() {
-  const { data } = await axios.get("http://10.10.2.230:1010/getproduct");
+  const { data } = await axios.get("http://localhost:1010/getproduct");
 
   return data;
 }
@@ -114,7 +114,7 @@ export default async function Home() {
                 <div className="bg-gray  h-full border border-lightGray hover:shadow-xl p-6 rounded-lg hover:scale-105 transition-transform ease-out duration-200">
                   <img
                     className="h-40 rounded w-full object-cover object-center mb-6"
-                    src={`http://10.10.2.230:1010${product.pro_img}`}
+                    src={`http://localhost:1010${product.pro_img}`}
                     alt="content"
                   />
                   <div className="font-semibold items-center mt-4 mb-1">

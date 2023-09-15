@@ -23,7 +23,7 @@ const Login = () => {
     const { email, password } = evt.target.elements;
     try {
       const data = await axios
-        .post("http://10.10.2.230:1010/login_buyers", {
+        .post("http://localhost:1010/login_buyers", {
           buyer_email: email.value,
           buyer_password: password.value,
         })

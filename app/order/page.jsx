@@ -11,7 +11,7 @@ const Order = () => {
     const getProducts = async () => {
       try {
         const { data } = await axios.get(
-          "http://10.10.2.230:1010/get_order_user",
+          "http://localhost:1010/get_order_user",
           {
             headers: {
               Authorization: `Basic ${token}`,
@@ -61,7 +61,7 @@ const Order = () => {
                     <td className="w-25 p-2">
                       <div className="flex items-center">
                         <img
-                          src={`http://10.10.2.230:1010${order.order_img}`}
+                          src={`http://localhost:1010${order.order_img}`}
                           alt="Image"
                           style={{ width: "100px" }}
                         />

@@ -22,7 +22,7 @@ const Register = () => {
     const { name, email, password } = evt.target.elements;
     try {
       const data = await axios
-        .post("http://10.10.2.230:1010/post_buyer", {
+        .post("http://localhost:1010/post_buyer", {
           buyer_name: name.value,
           buyer_email: email.value,
           buyer_password: password.value,

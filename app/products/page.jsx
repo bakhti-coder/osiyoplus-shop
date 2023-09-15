@@ -60,7 +60,7 @@ export default function Products() {
   useEffect(() => {
     const getProducts = async () => {
       try {
-        const { data } = await axios.get("http://10.10.2.230:1010/getproduct");
+        const { data } = await axios.get("http://localhost:1010/getproduct");
         setProducts(data);
       } catch (error) {
         console.log(error);
@@ -75,7 +75,7 @@ export default function Products() {
   useEffect(() => {
     const getCategory = () => {
       try {
-        axios.get("http://10.10.2.230:1010/get_category").then((res) => {
+        axios.get("http://localhost:1010/get_category").then((res) => {
           setCategory(res.data);
         });
       } catch (error) {
@@ -89,7 +89,7 @@ export default function Products() {
   const handleCategory = async (id) => {
     try {
       const response = await axios.get(
-        `http://10.10.2.230:1010/get_category_with_products/${id}`
+        `http://localhost:1010/get_category_with_products/${id}`
       );
       setCatgeroyIdData(response.data.Products);
       setCtgTru(true);
@@ -184,7 +184,7 @@ export default function Products() {
                   <div className="hover:shadow-xl bg-gray lg:mx-0 mx-5  border border-lightGray p-6 rounded-lg hover:scale-105 transition-transform ease-out duration-200 h-full">
                     <img
                       className="h-40 rounded w-full object-cover object-center mb-6"
-                      src={`http://10.10.2.230:1010${data.pro_img}`}
+                      src={`http://localhost:1010${data.pro_img}`}
                       alt="image"
                     />
                     <div className="font-semibold items-center mt-4 mb-1">
@@ -223,7 +223,7 @@ export default function Products() {
                       <div className="hover:shadow-xl lg:mx-0 mx-5 bg-gray  border border-lightGray p-6 rounded-lg hover:scale-105 transition-transform ease-out duration-200 h-full">
                         <img
                           className="h-40 rounded w-full object-cover object-center mb-6"
-                          src={`http://10.10.2.230:1010${product.pro_img}`}
+                          src={`http://localhost:1010${product.pro_img}`}
                           alt="image"
                         />
                         <div className="font-semibold items-center mt-4 mb-1">
