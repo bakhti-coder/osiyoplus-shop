@@ -1,18 +1,27 @@
 "use client";
 
-import axios from "axios";
 import Hamburger from "hamburger-react";
+import { LogOut, User, ShoppingBag } from "../../node_modules/lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export default function Header() {
   const token = localStorage.getItem("token");
   const [open, setOpen] = useState(false);
   const [userOpen, setUserOpen] = useState(false);
+  const [message, setMessage] = useState({
+    type: "",
+    message: "",
+  });
 
   const handleButtonClick = () => {
     setUserOpen(!userOpen);
+  };
+
+  const handleLogOut = () => {
+    localStorage.removeItem("token");
+    window.location.reload();
   };
 
   return (
@@ -21,14 +30,14 @@ export default function Header() {
         <nav className="container max-w-1200 py-5 ">
           <div
             onClick={() => setOpen(!open)}
-            className="text-3xl absolute right-0 top-2 cursor-pointer md:hidden z-30  "
+            className={`text-3xl absolute ${
+              token ? "left-0" : "right-0"
+            } top-2 cursor-pointer md:hidden z-30 `}
           >
             <Hamburger toggled={open} toggle={setOpen} />
           </div>
-          <div
-            className={`flex ${token ? "justify-between" : ""} items-center`}
-          >
-            <div className="z-50">
+          <div className={`flex justify-between items-center`}>
+            <div className={`${token ? "md:block hidden" : "md:block"} z-50`}>
               <Link href={"/"}>
                 <Image
                   src="/source/image/logo-no-background.svg"
@@ -123,50 +132,49 @@ export default function Header() {
                 </li>
               )}
             </ul>
-            <div>
-              {token ? (
-                <div
-                  onClick={handleButtonClick}
-                  className="ml-5 cursor-pointer relative"
-                >
-                  <Image
-                    src={"/source/image/user.svg"}
-                    width={32}
-                    height={32}
-                    alt="user"
-                  />
-                  {userOpen && (
-                    <div className="user_modal z-50 absolute p-5 w-[210px] right-0">
-                      <ul>
-                        <li className="flex justify-start mb-3 items-center text-white">
-                          <Image
-                            src={"/source/image/buyurtmalarim.svg"}
-                            width={24}
-                            height={24}
-                            alt="buyurtmalarim"
-                            className="fill-black"
-                          />
-                          <Link href={"/order"} className="ml-2 text-black">
-                            Buyurtmalarim
-                          </Link>
-                        </li>
-                        <li className="flex justify-start items-center text-white">
-                          <Image
-                            src={"/source/image/chiqish.svg"}
-                            width={24}
-                            height={24}
-                            alt="buyurtmalarim"
-                          />
-                          <span className="ml-2 text-black">Chiqish</span>
-                        </li>
-                      </ul>
+            {token ? <div></div> : ""}
+            {token ? (
+              <div>
+                {token ? (
+                  <div
+                    onClick={handleButtonClick}
+                    className=" -mt-1 z-50 cursor-pointer relative"
+                  >
+                    <div className="bg-[#DB4444] rounded-full">
+                      <User
+                        strokeWidth={1.75}
+                        color="white"
+                        className="p-2"
+                        size={32}
+                      />
                     </div>
-                  )}
-                </div>
-              ) : (
-                ""
-              )}
-            </div>
+                    {userOpen && (
+                      <div className="user_modal z-50 absolute p-5 w w-[200px] right-0">
+                        <ul>
+                          <li className="flex justify-start mb-3 items-center text-white">
+                            <ShoppingBag strokeWidth={1.75} color="black" />
+                            <Link href={"/order"} className="ml-2 text-black">
+                              Buyurtmalarim
+                            </Link>
+                          </li>
+                          <li
+                            onClick={handleLogOut}
+                            className="flex justify-start items-center text-white"
+                          >
+                            <LogOut strokeWidth={1.75} color="black" />
+                            <span className="ml-2 text-black">Chiqish</span>
+                          </li>
+                        </ul>
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  ""
+                )}
+              </div>
+            ) : (
+              ""
+            )}
           </div>
         </nav>
       </header>
