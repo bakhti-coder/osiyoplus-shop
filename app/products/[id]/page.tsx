@@ -39,8 +39,6 @@ const SingleProduct = () => {
     setIsOpen(false);
   }
   const handlePhoneNumberChange = (value: any) => {
-    console.log(value);
-
     if (value && value.length === 7) {
       setPhoneNumber(value);
     }
@@ -96,7 +94,7 @@ const SingleProduct = () => {
       try {
         const { data } = await axios.get("http://localhost:1010/getproduct");
       } catch (error) {
-        console.log(error);
+        alert('Tarmoqda xatolik yuz berdi')
       }
     };
     getProducts();

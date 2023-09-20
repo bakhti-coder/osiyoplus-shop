@@ -13,15 +13,18 @@ export default function PageTransitionProvider({
       <motion.div
         initial={{
           opacity: 0,
+          translateY: 20, // Yonida boshlanadi
         }}
         exit={{
           opacity: 0,
+          translateY: -20, // Tepaga chiqib ketadi
         }}
         animate={{
           opacity: 1,
+          translateY: 0, // O'rtasiga o'tadi
         }}
         transition={{
-          duration: 0.6,
+          duration: 0.5,
         }}
       >
         {children}

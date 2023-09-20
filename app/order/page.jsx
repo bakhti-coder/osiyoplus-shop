@@ -8,7 +8,6 @@ const Order = () => {
   const token = localStorage.getItem("token");
   const [orderLoading, setOrderLoading] = useState(false);
   const [order, setOrder] = useState([]);
-  console.log(order);
 
   useEffect(() => {
     const getProducts = async () => {
@@ -75,7 +74,7 @@ const Order = () => {
                   </thead>
                   <tbody>
                     {orderLoading
-                      ? order.map((order, idx) => (
+                      ? order.reverse().map((order, idx) => (
                           <tr
                             key={idx}
                             className=" border border-gray-300 bg-gray"

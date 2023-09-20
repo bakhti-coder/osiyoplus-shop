@@ -10,10 +10,6 @@ export default function Header() {
   const token = localStorage.getItem("token");
   const [open, setOpen] = useState(false);
   const [userOpen, setUserOpen] = useState(false);
-  const [message, setMessage] = useState({
-    type: "",
-    message: "",
-  });
 
   const handleButtonClick = () => {
     setUserOpen(!userOpen);

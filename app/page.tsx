@@ -130,10 +130,10 @@ export default async function Home() {
                   <div
                     data-aos="fade-up"
                     data-aos-delay={idx * 100}
-                    className="bg-gray  h-full border border-lightGray hover:shadow-xl p-6 rounded-lg hover:scale-105 transition-transform ease-out duration-200"
+                    className="bg-gray h-full border border-lightGray hover:shadow-xl p-6 rounded-lg hover:scale-105 transition-transform ease-out duration-200"
                   >
                     <img
-                      className="h-40 rounded w-full object-cover object-center mb-6"
+                      className="h-64 md:h-44 rounded w-full object-cover object-center mb-6"
                       src={`http://localhost:1010${product.pro_img}`}
                       alt="content"
                     />
