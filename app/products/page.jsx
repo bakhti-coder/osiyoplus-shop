@@ -8,6 +8,7 @@ import { FreeMode } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/free-mode";
 import PageTransitionProvider from "../components/page-transition";
+import CustomImage from "../components/image";
 
 export default function Products() {
   const [products, setProducts] = useState([]);
@@ -65,7 +66,7 @@ export default function Products() {
         const { data } = await axios.get("http://localhost:1010/getproduct");
         setProducts(data);
       } catch (error) {
-        alert('Tarmoqda xatolik yuz berid')
+        alert("Tarmoqda xatolik yuz berid");
       } finally {
         setLoading(false);
       }
@@ -155,17 +156,18 @@ export default function Products() {
               <div className="grid grid-cols-1 justify-center sm:justify-start sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-[30px] ">
                 {categoryIdData.map((data, idx) => (
                   <Link key={idx} href={`/products/${data.pro_id}`}>
-                    <div className="hover:shadow-xl bg-gray lg:mx-0 mx-5  border border-lightGray p-6 rounded-lg hover:scale-105 transition-transform ease-out duration-200 h-full">
-                      <img
-                        className="h-40 rounded w-full object-cover object-center mb-6"
-                        src={`http://localhost:1010${data.pro_img}`}
-                        alt="image"
-                      />
+                    <div
+                      data-aos="fade-up"
+                      data-aos-delay={idx * 100}
+                      className="hover:shadow-xl bg-gray flex flex-col lg:mx-0 mx-5  border border-lightGray p-6 rounded-lg hover:scale-105 transition-transform ease-out duration-200 h-80"
+                    >
+                      <div className="max-h-64 w-full relative flex-1">
+                        <CustomImage product={data} fill />
+                      </div>
                       <div className="font-semibold items-center mt-4 mb-1">
                         <p className="w-full truncate my-2">{data.pro_name}</p>
                         <p className="tracking-widest text-indigo-500 text-xs font-medium title-font">
-                          {data.pro_price}
-                          {` so'm`}
+                          {data.pro_price} {`so'm`}
                         </p>
                       </div>
                       <p className="leading-relaxed text-base line-clamp-2">
@@ -225,13 +227,11 @@ export default function Products() {
                         <div
                           data-aos="fade-up"
                           data-aos-delay={idx * 100}
-                          className="hover:shadow-xl lg:mx-0 mx-5 bg-gray  border border-lightGray p-6 rounded-lg hover:scale-105 transition-transform ease-out duration-200 h-full"
+                          className="hover:shadow-xl bg-gray flex flex-col lg:mx-0 mx-5  border border-lightGray p-6 rounded-lg hover:scale-105 transition-transform ease-out duration-200 h-80"
                         >
-                          <img
-                            className="h-40 rounded w-full object-cover object-center mb-6"
-                            src={`http://localhost:1010${product.pro_img}`}
-                            alt="image"
-                          />
+                          <div className="max-h-64 w-full relative flex-1">
+                            <CustomImage product={product} fill />
+                          </div>
                           <div className="font-semibold items-center mt-4 mb-1">
                             <p className="w-full truncate my-2">
                               {product.pro_name}

@@ -3,6 +3,7 @@ import axios from "axios";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import PageTransitionProvider from "../components/page-transition";
+import Image from "next/image";
 
 const Order = () => {
   const token = localStorage.getItem("token");
@@ -81,10 +82,16 @@ const Order = () => {
                           >
                             <td className="w-25 p-2">
                               <div className="flex items-center">
-                                <img
+                                {/* <img
                                   src={`http://localhost:1010${order.order_img}`}
                                   alt="Image"
                                   style={{ width: "100px" }}
+                                /> */}
+                                <Image
+                                  src={`http://localhost:1010${order.order_img}`}
+                                  alt="orderimg"
+                                  width={150}
+                                  height={50}
                                 />
                               </div>
                             </td>

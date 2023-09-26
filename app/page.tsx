@@ -8,6 +8,7 @@ import axios from "axios";
 import { ProductsType } from "./interface/productsType";
 import PageTransitionProvider from "./components/page-transition";
 import TextAnimation from "./components/text-animation";
+import CustomImage from "./components/image";
 
 async function getProducts() {
   const { data } = await axios.get("http://localhost:1010/getproduct");
@@ -130,13 +131,11 @@ export default async function Home() {
                   <div
                     data-aos="fade-up"
                     data-aos-delay={idx * 100}
-                    className="bg-gray h-full border border-lightGray hover:shadow-xl p-6 rounded-lg hover:scale-105 transition-transform ease-out duration-200"
+                    className="hover:shadow-xl bg-gray flex flex-col lg:mx-0 mx-5  border border-lightGray p-6 rounded-lg hover:scale-105 transition-transform ease-out duration-200 h-80"
                   >
-                    <img
-                      className="h-64 md:h-44 rounded w-full object-cover object-center mb-6"
-                      src={`http://localhost:1010${product.pro_img}`}
-                      alt="content"
-                    />
+                    <div className="max-h-64 w-full relative flex-1">
+                      <CustomImage product={product} fill />
+                    </div>
                     <div className="font-semibold items-center mt-4 mb-1">
                       <p className="w-full truncate my-2">{product.pro_name}</p>
                       <p className="tracking-widest text-indigo-500 text-xs font-medium title-font">
