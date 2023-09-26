@@ -1,40 +1,40 @@
 "use client";
 import React, { useEffect, useState } from "react";
-// import Link from "next/link";
-// import axios from "axios";
-// import Image from "next/image";
+import Link from "next/link";
+import axios from "axios";
+import Image from "next/image";
 import { PageTransitionProvider } from "../components/page-transition";
 
 const Order = () => {
-  // const token = localStorage.getItem("token");
-  // const [orderLoading, setOrderLoading] = useState(false);
-  // const [order, setOrder] = useState([]);
+  const token = localStorage.getItem("token");
+  const [orderLoading, setOrderLoading] = useState(false);
+  const [order, setOrder] = useState([]);
 
-  // //////////// Get order user /////////
-  // useEffect(() => {
-  //   const getProducts = async () => {
-  //     try {
-  //       const { data } = await axios.get(
-  //         "http://localhost:1010/get_order_user",
-  //         {
-  //           headers: {
-  //             Authorization: `Basic ${token}`,
-  //           },
-  //         }
-  //       );
-  //       setOrder(data.Orders);
-  //     } catch (error) {
-  //       console.log(error);
-  //     } finally {
-  //       setOrderLoading(true);
-  //     }
-  //   };
-  //   getProducts();
-  // }, [token]);
+  //////////// Get order user /////////
+  useEffect(() => {
+    const getProducts = async () => {
+      try {
+        const { data } = await axios.get(
+          "http://localhost:1010/get_order_user",
+          {
+            headers: {
+              Authorization: `Basic ${token}`,
+            },
+          }
+        );
+        setOrder(data.Orders);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setOrderLoading(true);
+      }
+    };
+    getProducts();
+  }, [token]);
 
   return (
     <PageTransitionProvider>
-      {/* <section>
+      <section>
         <div className="container max-w-1200 py-20">
           {order.length == 0 ? (
             <h1 className="text-center text-3xl text-dark font-semibold">
@@ -120,7 +120,7 @@ const Order = () => {
             </>
           )}
         </div>
-      </section> */}
+      </section>
     </PageTransitionProvider>
   );
 };
