@@ -1,13 +1,14 @@
 "use client";
 
 import Hamburger from "hamburger-react";
-import { LogOut, User, ShoppingBag } from "../../node_modules/lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
 export default function Header() {
-  const token = localStorage.getItem("token");
+  const isLocalStorageAvailable = typeof localStorage !== "undefined";
+
+  const token = isLocalStorageAvailable ? localStorage.getItem("token") : null;
   const [open, setOpen] = useState(false);
   const [userOpen, setUserOpen] = useState(false);
 
@@ -123,13 +124,13 @@ export default function Header() {
                     href={"/register"}
                     className={`text-gray-800 hover:text-[#688AF2] duration-500 `}
                   >
-                    Ro'yhatdan otish
+                    {`Ro'yhatdan otish`}
                   </Link>
                 </li>
               )}
             </ul>
-            {token ? <div></div> : ""}
-            {token ? (
+            {token && <div></div>}
+            {token && (
               <div>
                 {token ? (
                   <div
@@ -137,18 +138,30 @@ export default function Header() {
                     className=" -mt-1 z-50 cursor-pointer relative"
                   >
                     <div className="bg-[#DB4444] rounded-full">
-                      <User
+                      {/* <User
                         strokeWidth={1.75}
                         color="white"
                         className="p-2"
                         size={32}
+                      /> */}
+                      <Image
+                        src={"/source/image/user.svg"}
+                        width={32}
+                        height={32}
+                        alt="user"
                       />
                     </div>
                     {userOpen && (
                       <div className="user_modal z-50 absolute p-5 w w-[200px] right-0">
                         <ul>
                           <li className="flex justify-start mb-3 items-center text-white">
-                            <ShoppingBag strokeWidth={1.75} color="black" />
+                            {/* <ShoppingBag strokeWidth={1.75} color="black" /> */}
+                            <Image
+                              src={"/source/image/shopping-bag.svg"}
+                              width={24}
+                              height={24}
+                              alt="order"
+                            />
                             <Link href={"/order"} className="ml-2 text-black">
                               Buyurtmalarim
                             </Link>
@@ -157,7 +170,13 @@ export default function Header() {
                             onClick={handleLogOut}
                             className="flex justify-start items-center text-white"
                           >
-                            <LogOut strokeWidth={1.75} color="black" />
+                            {/* <LogOut strokeWidth={1.75} color="black" /> */}
+                            <Image
+                              src={"/source/image/log-out.svg"}
+                              width={24}
+                              height={24}
+                              alt="log-out"
+                            />
                             <span className="ml-2 text-black">Chiqish</span>
                           </li>
                         </ul>
@@ -168,8 +187,6 @@ export default function Header() {
                   ""
                 )}
               </div>
-            ) : (
-              ""
             )}
           </div>
         </nav>

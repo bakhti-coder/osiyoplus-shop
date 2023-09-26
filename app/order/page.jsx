@@ -23,7 +23,7 @@ const Order = () => {
         setOrder(data.Orders);
         setOrderLoading(true);
       } catch (error) {
-        alert("Serverda xatolik yuz berdi");
+        console.log(error);
       }
     };
     getProducts();
@@ -35,7 +35,7 @@ const Order = () => {
         <div className="container max-w-1200 py-20">
           {order.length == 0 ? (
             <h1 className="text-center text-3xl text-dark font-semibold">
-              Buyurtmalar yo'q
+              {`Buyurtmalar yo'q`}
               <div>
                 <Link
                   href={"/products"}

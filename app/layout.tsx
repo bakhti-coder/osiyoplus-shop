@@ -6,6 +6,7 @@ import Header from "./layout/header";
 import Footer from "./layout/footer";
 import AOS from "./components/aos";
 import Head from "next/head";
+import Provider from "./provider";
 
 const poppins = Poppins({ subsets: ["latin"], weight: "400" });
 
@@ -22,12 +23,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={poppins.className}>
-        <Head>
-          <link rel="icon" href="/favicon.ico" />
-        </Head>
-        <Header />
-        <AOS>{children}</AOS>
-        <Footer />
+        <Provider>
+          <Head>
+            <link rel="icon" href="/favicon.ico" />
+          </Head>
+          <Header />
+          <AOS>{children}</AOS>
+          <Footer />
+        </Provider>
       </body>
     </html>
   );

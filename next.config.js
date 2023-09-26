@@ -1,5 +1,9 @@
 /** @type {import('next').NextConfig} */
 module.exports = {
+  images: {
+    domains: ["localhost"],
+    // Optional: Specify additional image formats
+  },
   async headers() {
     return [
       {

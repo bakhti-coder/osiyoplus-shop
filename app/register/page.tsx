@@ -82,6 +82,7 @@ const Register = () => {
               <form onSubmit={handleRegister}>
                 <div className="relative float-label-input">
                   <input
+                    required
                     type="text"
                     name="name"
                     className="w-full md:w-80 bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-md py-3 px-3 block appearance-none leading-normal focus:border-blue-400"
@@ -95,6 +96,7 @@ const Register = () => {
                 </div>
                 <div className="relative float-label-input">
                   <input
+                    required
                     type="email"
                     name="email"
                     className="w-full md:w-80 bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-md py-3 px-3 block appearance-none leading-normal focus:border-blue-400"
@@ -108,6 +110,7 @@ const Register = () => {
                 </div>
                 <div className="relative float-label-input">
                   <input
+                    required
                     type="password"
                     name="password"
                     className="w-full md:w-80 bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-md py-3 px-3 block appearance-none leading-normal focus:border-blue-400"

@@ -83,6 +83,7 @@ const Login = () => {
                 )}
                 <div className="relative float-label-input">
                   <input
+                    required
                     type="email"
                     name="email"
                     placeholder=" "
@@ -97,6 +98,7 @@ const Login = () => {
                 </div>
                 <div className="relative float-label-input">
                   <input
+                    required
                     type="password"
                     name="password"
                     placeholder=" "

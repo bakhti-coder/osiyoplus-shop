@@ -1,15 +1,19 @@
 "use client";
-import "aos/dist/aos.css";
-import "react-phone-number-input/style.css";
-import PhoneInput from "react-phone-number-input";
-import { ProductsType } from "@/app/interface/productsType";
-import axios from "axios";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
+import Image from "next/image";
+import { ToastContainer, toast } from "react-toastify";
+import PhoneInput from "react-phone-number-input";
 import ReactModal from "react-modal";
-import Link from "next/link";
+import axios from "axios";
+import { ProductsType } from "@/app/interface/productsType";
+import CustomImage from "@/app/components/image";
 import PageTransitionProvider from "@/app/components/page-transition";
 import TextAnimation from "@/app/components/text-animation";
+import "react-phone-number-input/style.css";
+import "aos/dist/aos.css";
+import "react-toastify/dist/ReactToastify.css";
 
 const SingleProduct = () => {
   const token = localStorage.getItem("token");
@@ -23,11 +27,6 @@ const SingleProduct = () => {
   const [sendUserPhoneNumber, setSendUserPhoneNumber] = useState("");
   const [buttonLoader, setButtonLoader] = useState(false);
   const [productLoading, setProductLoading] = useState(false);
-
-  const [orderMessage, setOrderMessage] = useState({
-    type: "",
-    message: "",
-  });
 
   function openModal() {
     setIsOpen(true);
@@ -72,18 +71,11 @@ const SingleProduct = () => {
             window.location.href = "/order";
           }, 4000);
           setButtonLoader(false);
-          setOrderMessage({
-            type: "true",
-            message: "Buyurtma yuborildi",
-          });
         });
+      toast.success("Buyurtma yuborildi");
     } catch (error) {
       alert("Serverda xatoloik yuz berdi");
       setButtonLoader(false);
-      setOrderMessage({
-        type: "false",
-        message: "Buyurtma yuborilmadi",
-      });
     } finally {
       setButtonLoader(true);
     }
@@ -94,7 +86,7 @@ const SingleProduct = () => {
       try {
         const { data } = await axios.get("http://localhost:1010/getproduct");
       } catch (error) {
-        alert('Tarmoqda xatolik yuz berdi')
+        alert("Tarmoqda xatolik yuz berdi");
       }
     };
     getProducts();
@@ -155,42 +147,44 @@ const SingleProduct = () => {
         contentLabel="Example Modal"
         overlayClassName="modal-overlay"
       >
-        {orderMessage.type === "true" && (
-          <h1 className="my-2 text-green-700 text-center font-semibold">
-            {orderMessage.message}
-          </h1>
-        )}
-        {orderMessage.type === "false" && (
-          <h1 className="my-2 text-red-700 text-center font-semibold">
-            {orderMessage.message}
-          </h1>
-        )}
-        <form onSubmit={(e) => sendData(e)}>
-          <div className="mt-2">
-            <input
-              onChange={(e) => setSendUsername(e.target.value)}
-              type="text"
-              name="user_name"
-              id="first_name"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 "
-              placeholder="Ismingiz"
-              required
-            />
-          </div>
-          <div className="my-2">
-            <PhoneInput
-              international
-              type="tel"
-              id="first_name"
-              limitMaxLength={true}
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 "
-              required
-              defaultCountry="UZ"
-              value={phoneNumber}
-              onChange={(e) => handlePhoneNumberChange(e)}
-            />
-          </div>
-          {token ? (
+        <ToastContainer
+          position="top-center"
+          autoClose={4000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
+        {token ? (
+          <form onSubmit={(e) => sendData(e)}>
+            <div className="mt-2">
+              <input
+                onChange={(e) => setSendUsername(e.target.value)}
+                type="text"
+                name="user_name"
+                id="first_name"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 "
+                placeholder="Ismingiz"
+                required
+              />
+            </div>
+            <div className="my-2">
+              <PhoneInput
+                international
+                type="tel"
+                id="first_name"
+                limitMaxLength={true}
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 "
+                required
+                defaultCountry="UZ"
+                value={phoneNumber}
+                onChange={(e) => handlePhoneNumberChange(e)}
+              />
+            </div>
             <div className="w-full">
               {buttonLoader ? (
                 <button
@@ -225,28 +219,34 @@ const SingleProduct = () => {
                 </button>
               )}
             </div>
-          ) : (
-            <h1 className="text-dark text-center text-base">
-              Mahsulot xarid qilish uchun
-              <Link href={"/register"} className="underline px-1">
-                Ro'yxatdan o'ting
-              </Link>
-              yoki{" "}
-              <Link href={"/login"} className="underline">
-                kiring
-              </Link>
-            </h1>
-          )}
-        </form>
+          </form>
+        ) : (
+          <h1 className="text-dark text-center text-ba mt-9">
+            Mahsulot xarid qilish uchun
+            <Link href={"/register"} className="underline px-1">
+              {`Ro'yxatdan o'ting`}
+            </Link>
+            yoki{" "}
+            <Link href={"/login"} className="underline">
+              kiring
+            </Link>
+          </h1>
+        )}
       </ReactModal>
       <div className="container max-w-1200 py-20">
         {productLoading ? (
           <div className="flex justify-start flex-wrap md:flex-nowrap ">
             <div data-aos="fade-up" className="max-w-[600px]">
-              <img
+              {/* <img
                 src={`http://localhost:1010${products?.pro_img}`}
                 alt="image"
                 style={{ width: "1200px", height: "500px", objectFit: "cover" }}
+              /> */}
+              <Image
+                src={`http://localhost:1010${products?.pro_img}`}
+                width={1200}
+                height={500}
+                alt="img"
               />
             </div>
             <div className="md:pt-0 pt-5 ml-0 md:ml-20 w-full">
@@ -289,13 +289,16 @@ const SingleProduct = () => {
                   <div
                     data-aos="fade-up"
                     data-aos-delay={idx * 100}
-                    className="hover:shadow-xl bg-gray lg:mx-0 mx-5  border border-lightGray p-6 rounded-lg hover:scale-105 transition-transform ease-out duration-200 h-full"
+                    className="hover:shadow-xl bg-gray flex flex-col lg:mx-0 mx-5  border border-lightGray p-6 rounded-lg hover:scale-105 transition-transform ease-out duration-200 h-80"
                   >
-                    <img
+                    {/* <img
                       className="h-40 rounded w-full object-cover object-center mb-6"
                       src={`http://localhost:1010${data.pro_img}`}
                       alt="image"
-                    />
+                    /> */}
+                    <div className="max-h-64 w-full relative flex-1">
+                      <CustomImage product={data} fill />
+                    </div>
                     <div className="font-semibold items-center mt-4 mb-1">
                       <p className="w-full truncate my-2">{data.pro_name}</p>
                       <p className="tracking-widest text-indigo-500 text-xs font-medium title-font">
