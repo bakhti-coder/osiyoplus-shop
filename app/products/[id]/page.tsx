@@ -113,10 +113,9 @@ const SingleProduct = () => {
   useEffect(() => {
     async function getData() {
       try {
-        const res = await fetch(`http://localhost:1010/getproduct`);
-        const product = await res.json();
+        const res = await axios.get(`http://localhost:1010/getproduct`);
 
-        setPr(product);
+        setPr(res);
         setProductLoading(true);
       } catch (error) {
         setProductLoading(false);
