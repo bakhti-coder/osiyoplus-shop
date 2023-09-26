@@ -237,11 +237,6 @@ const SingleProduct = () => {
         {productLoading ? (
           <div className="flex justify-start flex-wrap md:flex-nowrap ">
             <div data-aos="fade-up" className="max-w-[600px]">
-              {/* <img
-                src={`http://localhost:1010${products?.pro_img}`}
-                alt="image"
-                style={{ width: "1200px", height: "500px", objectFit: "cover" }}
-              /> */}
               <Image
                 src={`http://localhost:1010${products?.pro_img}`}
                 width={1200}
@@ -291,11 +286,6 @@ const SingleProduct = () => {
                     data-aos-delay={idx * 100}
                     className="hover:shadow-xl bg-gray flex flex-col lg:mx-0 mx-5  border border-lightGray p-6 rounded-lg hover:scale-105 transition-transform ease-out duration-200 h-80"
                   >
-                    {/* <img
-                      className="h-40 rounded w-full object-cover object-center mb-6"
-                      src={`http://localhost:1010${data.pro_img}`}
-                      alt="image"
-                    /> */}
                     <div className="max-h-64 w-full relative flex-1">
                       <CustomImage product={data} fill />
                     </div>

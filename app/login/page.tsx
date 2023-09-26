@@ -38,7 +38,6 @@ const Login = () => {
           window.location.href = "/";
         });
     } catch (error) {
-      alert("Tarmoqda xatolik yuz berid");
       setErrorMessage({
         type: "error",
         message: "Email yoki parol xato",

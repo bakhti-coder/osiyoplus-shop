@@ -82,11 +82,7 @@ const Order = () => {
                           >
                             <td className="w-25 p-2">
                               <div className="flex items-center">
-                                {/* <img
-                                  src={`http://localhost:1010${order.order_img}`}
-                                  alt="Image"
-                                  style={{ width: "100px" }}
-                                /> */}
+                               
                                 <Image
                                   src={`http://localhost:1010${order.order_img}`}
                                   alt="orderimg"
