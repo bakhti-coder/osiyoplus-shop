@@ -1,114 +1,114 @@
 "use client";
 import Link from "next/link";
-// import React, { useEffect, useState } from "react";
-// import { useParams, useRouter } from "next/navigation";
-// import Image from "next/image";
-// import axios from "axios";
-// import CustomImage from "@/app/components/image";
-// import TextAnimation from "@/app/components/text-animation";
+import React, { useEffect, useState } from "react";
+import { useParams, useRouter } from "next/navigation";
+import Image from "next/image";
+import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import PhoneInput from "react-phone-number-input";
 import ReactModal from "react-modal";
+import CustomImage from "@/app/components/image";
 import PageTransitionProvider from "@/app/components/page-transition";
+import TextAnimation from "@/app/components/text-animation";
 import "react-phone-number-input/style.css";
 import "aos/dist/aos.css";
 import "react-toastify/dist/ReactToastify.css";
 
 const SingleProduct = () => {
-  // const router = useRouter();
-  // const token = localStorage.getItem("token");
-  // const [products, setProduct] = useState([]);
-  // const [pr, setPr] = useState([]);
-  // const [modalIsOpen, setIsOpen] = React.useState(false);
-  // const [phoneNumber, setPhoneNumber] = useState("");
-  // const [sendProduct, setSendProduct] = useState("");
-  // const [sendUsername, setSendUsername] = useState("");
-  // const [sendUserPhoneNumber, setSendUserPhoneNumber] = useState("");
-  // const [buttonLoader, setButtonLoader] = useState(false);
-  // const [productLoading, setProductLoading] = useState(false);
+  const router = useRouter();
+  const token = localStorage.getItem("token");
+  const [products, setProduct] = useState([]);
+  const [pr, setPr] = useState([]);
+  const [modalIsOpen, setIsOpen] = React.useState(false);
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [sendProduct, setSendProduct] = useState("");
+  const [sendUsername, setSendUsername] = useState("");
+  const [sendUserPhoneNumber, setSendUserPhoneNumber] = useState("");
+  const [buttonLoader, setButtonLoader] = useState(false);
+  const [productLoading, setProductLoading] = useState(false);
 
-  // const { id } = useParams();
-  // //////// Get Single Product /////////
-  // useEffect(() => {
-  //   async function getData() {
-  //     try {
-  //       const { data } = await axios.get(
-  //         `http://localhost:1010/get_pro_id/${id}`
-  //       );
-  //       setProduct(data);
-  //     } catch (error) {
-  //     } finally {
-  //       setProductLoading(true);
-  //     }
-  //   }
-  //   getData();
-  // }, [id]);
+  const { id } = useParams();
+  //////// Get Single Product /////////
+  useEffect(() => {
+    async function getData() {
+      try {
+        const { data } = await axios.get(
+          `http://localhost:1010/get_pro_id/${id}`
+        );
+        setProduct(data);
+      } catch (error) {
+      } finally {
+        setProductLoading(true);
+      }
+    }
+    getData();
+  }, [id]);
 
-  // //////////// React-Modal ////////////
-  // function openModal() {
-  //   setIsOpen(true);
-  // }
-  // function afterOpenModal() {
-  //   // references are now sync'd and can be accessed.
-  // }
-  // function closeModal() {
-  //   setIsOpen(false);
-  // }
-  // //////////// Phone-input ////////////
-  // const handlePhoneNumberChange = (value) => {
-  //   if (value && value.length === 7) {
-  //     setPhoneNumber(value);
-  //   }
-  //   setSendUserPhoneNumber(value);
-  // };
+  //////////// React-Modal ////////////
+  function openModal() {
+    setIsOpen(true);
+  }
+  function afterOpenModal() {
+    // references are now sync'd and can be accessed.
+  }
+  function closeModal() {
+    setIsOpen(false);
+  }
+  //////////// Phone-input ////////////
+  const handlePhoneNumberChange = (value) => {
+    if (value && value.length === 7) {
+      setPhoneNumber(value);
+    }
+    setSendUserPhoneNumber(value);
+  };
 
-  // ////////// Send order //////////////
-  // const sendData = (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     axios.post(
-  //       "http://localhost:1010/post_order",
-  //       {
-  //         order_name: sendProduct?.pro_name,
-  //         order_price: sendProduct?.pro_price,
-  //         order_description: sendProduct?.pro_description,
-  //         order_img: sendProduct?.pro_img,
-  //         user_name: sendUsername,
-  //         user_phone: sendUserPhoneNumber,
-  //       },
-  //       {
-  //         headers: {
-  //           Authorization: `Basic ${token}`,
-  //         },
-  //       }
-  //     );
-  //     setTimeout(() => {
-  //       router.push("/order");
-  //     }, 1000);
-  //     setButtonLoader(false);
-  //     toast.success("Buyurtma yuborildi", { autoClose: 1000 });
-  //   } catch (error) {
-  //     alert("Tarmoqda xatoloik yuz berdi");
-  //     setButtonLoader(false);
-  //   } finally {
-  //     setButtonLoader(true);
-  //   }
-  // };
+  ////////// Send order //////////////
+  const sendData = (e) => {
+    e.preventDefault();
+    try {
+      axios.post(
+        "http://localhost:1010/post_order",
+        {
+          order_name: sendProduct?.pro_name,
+          order_price: sendProduct?.pro_price,
+          order_description: sendProduct?.pro_description,
+          order_img: sendProduct?.pro_img,
+          user_name: sendUsername,
+          user_phone: sendUserPhoneNumber,
+        },
+        {
+          headers: {
+            Authorization: `Basic ${token}`,
+          },
+        }
+      );
+      setTimeout(() => {
+        router.push("/order");
+      }, 1000);
+      setButtonLoader(false);
+      toast.success("Buyurtma yuborildi", { autoClose: 1000 });
+    } catch (error) {
+      alert("Tarmoqda xatoloik yuz berdi");
+      setButtonLoader(false);
+    } finally {
+      setButtonLoader(true);
+    }
+  };
 
-  // // Get Product
-  // useEffect(() => {
-  //   async function getData() {
-  //     try {
-  //       const { data } = await axios.get(`http://localhost:1010/getproduct`);
-  //       setPr(data);
-  //     } catch (error) {
-  //       alert("Tarmoqda xatolik yuz berdi");
-  //     } finally {
-  //       setProductLoading(true);
-  //     }
-  //   }
-  //   getData();
-  // }, []);
+  // Get Product
+  useEffect(() => {
+    async function getData() {
+      try {
+        const { data } = await axios.get(`http://localhost:1010/getproduct`);
+        setPr(data);
+      } catch (error) {
+        alert("Tarmoqda xatolik yuz berdi");
+      } finally {
+        setProductLoading(true);
+      }
+    }
+    getData();
+  }, []);
 
   return (
     <PageTransitionProvider>
@@ -218,7 +218,7 @@ const SingleProduct = () => {
           </h1>
         )}
       </ReactModal>
-      {/* <div className="container max-w-1200 py-20">
+      <div className="container max-w-1200 py-20">
         {productLoading ? (
           <div className="flex justify-start flex-wrap md:flex-nowrap ">
             <div data-aos="fade-up" className="max-w-[600px]">
@@ -288,7 +288,7 @@ const SingleProduct = () => {
               ))
             : "Malumot yuklanmoqda..."}
         </div>
-      </div> */}
+      </div>
     </PageTransitionProvider>
   );
 };
