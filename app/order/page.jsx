@@ -28,7 +28,7 @@ const Order = () => {
       }
     };
     getProducts();
-  }, []);
+  }, [token]);
 
   return (
     <PageTransitionProvider>

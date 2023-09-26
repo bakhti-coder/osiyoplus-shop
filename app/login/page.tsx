@@ -122,7 +122,7 @@ const Login = () => {
                   className="pl-2 underline decoration-1"
                   href={"/register"}
                 >
-                  Ro'yxatdan o'tish
+                  {` Ro'yxatdan o'tish`}
                 </Link>
               </p>
             </div>
