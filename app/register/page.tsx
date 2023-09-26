@@ -1,22 +1,21 @@
 "use client";
-import axios from "axios";
-import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import axios from "axios";
 import PageTransitionProvider from "../components/page-transition";
+import { ToastContainer, toast } from "react-toastify";
 
 const Register = () => {
   const router = useRouter();
-  const [errorMessage, setErrorMessage] = useState({
-    type: "",
-    message: "",
-  });
-  const [succsesMessega, SetSuccsesMessega] = useState({
-    type: "",
-    message: "",
-  });
   const [buttonLoader, setButtonLoader] = useState(false);
+
+  const isLocalStorageAvailable = typeof localStorage !== "undefined";
+  const token = isLocalStorageAvailable ? localStorage.getItem("token") : null;
+  if (token) {
+    return router.push("/");
+  }
 
   const handleRegister = async (evt: any) => {
     evt.preventDefault();
@@ -29,25 +28,14 @@ const Register = () => {
           buyer_password: password.value,
         })
         .then((res) => {
-          SetSuccsesMessega({
-            type: "succses",
-            message: "Muvaffaqiyatli😊",
-          });
           setButtonLoader(false);
-          router.push("/login");
+          setTimeout(() => {
+            router.push("/login");
+          }, 1000);
+          toast.success("Muvaffaqiyatli ", { autoClose: 1000 });
         });
     } catch (error) {
-      setErrorMessage({
-        type: "error",
-        message: "Bu email ro'yxatdan o'tgan iltimos boshqa email kiriting",
-      });
-      setButtonLoader(false);
-      setTimeout(() => {
-        setErrorMessage({
-          type: "",
-          message: "",
-        });
-      }, 5000);
+      toast.error(`Bu email ro'yxatdan o'tgan`);
     } finally {
       setButtonLoader(true);
     }
@@ -55,6 +43,13 @@ const Register = () => {
 
   return (
     <PageTransitionProvider>
+      <ToastContainer
+        position="top-center"
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        theme="light"
+      />
       <section>
         <div className="container max-w-1200 py-10 md:py-20">
           <div className="flex flex-wrap md:flex-wrap">
@@ -69,16 +64,6 @@ const Register = () => {
             <div className="ml-0 md:ml-24 mt-5 md:mt-10 ">
               <h1 className="text-3xl font-semibold mb-3">{`Ro'yhatdan o'tish`}</h1>
               <p className="text-sm leading-6">Malumotlaringizni kiriting</p>
-              {errorMessage.type === "error" && (
-                <p className=" text-xs my-2 text-error font-semibold">
-                  {errorMessage.message}
-                </p>
-              )}
-              {succsesMessega.type === "succses" && (
-                <p className=" my-2 text-success font-semibold">
-                  {succsesMessega.message}
-                </p>
-              )}
               <form onSubmit={handleRegister}>
                 <div className="relative float-label-input">
                   <input

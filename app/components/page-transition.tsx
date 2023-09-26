@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import React from "react";
 
-export default function PageTransitionProvider({
+export function PageTransitionProvider({
   children,
 }: {
   children: React.ReactNode;
@@ -32,3 +32,4 @@ export default function PageTransitionProvider({
     </>
   );
 }
+export default PageTransitionProvider;

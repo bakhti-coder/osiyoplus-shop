@@ -1,6 +1,4 @@
-import Image from "next/image";
 import PageTransitionProvider from "../components/page-transition";
-import AnimatedTextWord from "../components/text-animation";
 import TextAnimation from "../components/text-animation";
 
 const Faq = () => {

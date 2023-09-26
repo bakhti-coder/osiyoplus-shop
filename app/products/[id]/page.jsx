@@ -3,11 +3,10 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Image from "next/image";
+import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import PhoneInput from "react-phone-number-input";
 import ReactModal from "react-modal";
-import axios from "axios";
-import { ProductsType } from "@/app/interface/productsType";
 import CustomImage from "@/app/components/image";
 import PageTransitionProvider from "@/app/components/page-transition";
 import TextAnimation from "@/app/components/text-animation";
@@ -16,18 +15,36 @@ import "aos/dist/aos.css";
 import "react-toastify/dist/ReactToastify.css";
 
 const SingleProduct = () => {
+  const router = useRouter();
   const token = localStorage.getItem("token");
-  const [products, setProduct] = useState<ProductsType>();
-  const [pr, setPr] = useState<any>();
-  const [message, setMessage] = useState<boolean>(false);
+  const [products, setProduct] = useState([]);
+  const [pr, setPr] = useState([]);
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [sendProduct, setSendProduct] = useState<ProductsType>();
+  const [sendProduct, setSendProduct] = useState("");
   const [sendUsername, setSendUsername] = useState("");
   const [sendUserPhoneNumber, setSendUserPhoneNumber] = useState("");
   const [buttonLoader, setButtonLoader] = useState(false);
   const [productLoading, setProductLoading] = useState(false);
 
+  const { id } = useParams();
+  //////// Get Single Product /////////
+  useEffect(() => {
+    async function getData() {
+      try {
+        const { data } = await axios.get(
+          `http://localhost:1010/get_pro_id/${id}`
+        );
+        setProduct(data);
+      } catch (error) {
+      } finally {
+        setProductLoading(true);
+      }
+    }
+    getData();
+  }, [id]);
+
+  //////////// React-Modal ////////////
   function openModal() {
     setIsOpen(true);
   }
@@ -37,88 +54,57 @@ const SingleProduct = () => {
   function closeModal() {
     setIsOpen(false);
   }
-  const handlePhoneNumberChange = (value: any) => {
+  //////////// Phone-input ////////////
+  const handlePhoneNumberChange = (value) => {
     if (value && value.length === 7) {
       setPhoneNumber(value);
     }
     setSendUserPhoneNumber(value);
   };
 
-  const sendData = (e: React.FormEvent<HTMLFormElement>) => {
+  ////////// Send order //////////////
+  const sendData = (e) => {
     e.preventDefault();
     try {
-      axios
-        .post(
-          "http://localhost:1010/post_order",
-          {
-            order_name: sendProduct?.pro_name,
-            order_price: sendProduct?.pro_price,
-            order_description: sendProduct?.pro_description,
-            order_img: sendProduct?.pro_img,
-            user_name: sendUsername,
-            user_phone: sendUserPhoneNumber,
+      axios.post(
+        "http://localhost:1010/post_order",
+        {
+          order_name: sendProduct?.pro_name,
+          order_price: sendProduct?.pro_price,
+          order_description: sendProduct?.pro_description,
+          order_img: sendProduct?.pro_img,
+          user_name: sendUsername,
+          user_phone: sendUserPhoneNumber,
+        },
+        {
+          headers: {
+            Authorization: `Basic ${token}`,
           },
-          {
-            headers: {
-              Authorization: `Basic ${token}`,
-            },
-          }
-        )
-        .then((res) => {
-          setMessage(true);
-          setTimeout(() => {
-            setMessage(false);
-            window.location.href = "/order";
-          }, 4000);
-          setButtonLoader(false);
-        });
-      toast.success("Buyurtma yuborildi");
+        }
+      );
+      setTimeout(() => {
+        router.push("/order");
+      }, 1000);
+      setButtonLoader(false);
+      toast.success("Buyurtma yuborildi", { autoClose: 1000 });
     } catch (error) {
-      alert("Serverda xatoloik yuz berdi");
+      alert("Tarmoqda xatoloik yuz berdi");
       setButtonLoader(false);
     } finally {
       setButtonLoader(true);
     }
   };
 
-  useEffect(() => {
-    const getProducts = async () => {
-      try {
-        const { data } = await axios.get("http://localhost:1010/getproduct");
-      } catch (error) {
-        alert("Tarmoqda xatolik yuz berdi");
-      }
-    };
-    getProducts();
-  }, []);
-
-  const { id } = useParams();
-
-  useEffect(() => {
-    async function getData() {
-      try {
-        const res = await fetch(`http://localhost:1010/get_pro_id/${id}`);
-        const product = await res.json();
-        setProduct(product);
-        setProductLoading(false);
-      } catch (error) {
-        setProductLoading(true);
-      }
-    }
-
-    getData();
-  }, [id]);
-
   // Get Product
   useEffect(() => {
     async function getData() {
       try {
-        const res = await axios.get(`http://localhost:1010/getproduct`);
-
-        setPr(res);
-        setProductLoading(true);
+        const { data } = await axios.get(`http://localhost:1010/getproduct`);
+        setPr(data);
       } catch (error) {
-        setProductLoading(false);
+        alert("Tarmoqda xatolik yuz berdi");
+      } finally {
+        setProductLoading(true);
       }
     }
     getData();
@@ -278,7 +264,7 @@ const SingleProduct = () => {
         </h2>
         <div className="grid grid-cols-1 justify-center sm:justify-start sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-[30px] ">
           {productLoading
-            ? pr.slice(3, 12).map((data: any, idx: any) => (
+            ? pr.slice(3, 12).map((data, idx) => (
                 <Link key={idx} href={`/products/${data.pro_id}`}>
                   <div
                     data-aos="fade-up"

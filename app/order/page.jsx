@@ -1,15 +1,16 @@
 "use client";
-import axios from "axios";
-import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import PageTransitionProvider from "../components/page-transition";
+import Link from "next/link";
+import axios from "axios";
 import Image from "next/image";
+import { PageTransitionProvider } from "../components/page-transition";
 
 const Order = () => {
   const token = localStorage.getItem("token");
   const [orderLoading, setOrderLoading] = useState(false);
   const [order, setOrder] = useState([]);
 
+  //////////// Get order user /////////
   useEffect(() => {
     const getProducts = async () => {
       try {
@@ -22,9 +23,10 @@ const Order = () => {
           }
         );
         setOrder(data.Orders);
-        setOrderLoading(true);
       } catch (error) {
         console.log(error);
+      } finally {
+        setOrderLoading(true);
       }
     };
     getProducts();
@@ -82,7 +84,6 @@ const Order = () => {
                           >
                             <td className="w-25 p-2">
                               <div className="flex items-center">
-                               
                                 <Image
                                   src={`http://localhost:1010${order.order_img}`}
                                   alt="orderimg"

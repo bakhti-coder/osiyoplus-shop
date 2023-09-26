@@ -1,9 +1,8 @@
 "use client";
-
-import Hamburger from "hamburger-react";
-import Image from "next/image";
-import Link from "next/link";
 import { useState } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import Hamburger from "hamburger-react";
 
 export default function Header() {
   const isLocalStorageAvailable = typeof localStorage !== "undefined";
@@ -38,9 +37,9 @@ export default function Header() {
               <Link href={"/"}>
                 <Image
                   src="/source/image/logo-no-background.svg"
-                  width={130}
+                  width={120}
                   height={24}
-                  alt="logo"
+                  alt="logos"
                 />
               </Link>
             </div>

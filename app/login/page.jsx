@@ -1,25 +1,22 @@
 "use client";
-import axios from "axios";
+import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import axios from "axios";
 import PageTransitionProvider from "../components/page-transition";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
-  const token = localStorage.getItem("token");
   const router = useRouter();
-  const [errorMessage, setErrorMessage] = useState({
-    type: "",
-    message: "",
-  });
-  const [succsesMessega, SetSuccsesMessega] = useState({
-    type: "",
-    message: "",
-  });
-  const [buttonLoader, setButtonLoader] = useState(false);
+  const isLocalStorageAvailable = typeof localStorage !== "undefined";
 
-  const handleLogin = async (evt: any) => {
+  const token = isLocalStorageAvailable ? localStorage.getItem("token") : null;
+  if (token) {
+    return router.push("/");
+  }
+  const handleLogin = async (evt) => {
     evt.preventDefault();
     const { email, password } = evt.target.elements;
     try {
@@ -30,32 +27,24 @@ const Login = () => {
         })
         .then((res) => {
           localStorage.setItem("token", res.data.token);
-          SetSuccsesMessega({
-            type: "succses",
-            message: "Muvaffaqiyatli😊",
-          });
-          setButtonLoader(false);
+          console.log(res.data.token);
+          toast.success("Muvaffaqiyatli ", { autoClose: 1000 });
           window.location.href = "/";
         });
     } catch (error) {
-      setErrorMessage({
-        type: "error",
-        message: "Email yoki parol xato",
-      });
-      setButtonLoader(false);
-      setTimeout(() => {
-        setErrorMessage({
-          type: "",
-          message: "",
-        });
-      }, 5000);
-    } finally {
-      setButtonLoader(true);
+      toast.error("Email yoki Parol xato", { autoClose: 5000 });
     }
   };
 
   return (
     <PageTransitionProvider>
+      <ToastContainer
+        position="top-center"
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        theme="light"
+      />
       <section>
         <div className="container max-w-1200 py-10 md:py-20">
           <div className="flex flex-wrap md:flex-wrap">
@@ -70,16 +59,6 @@ const Login = () => {
             <div className="ml-0 md:ml-24 mt-5 md:mt-10 ">
               <h1 className="text-3xl font-semibold mb-3">{`Kirish`}</h1>
               <form onSubmit={handleLogin}>
-                {errorMessage.type === "error" && (
-                  <p className=" text-xs my-2 text-error font-semibold">
-                    {errorMessage.message}
-                  </p>
-                )}
-                {succsesMessega.type === "succses" && (
-                  <p className=" my-2 text-success font-semibold">
-                    {succsesMessega.message}
-                  </p>
-                )}
                 <div className="relative float-label-input">
                   <input
                     required

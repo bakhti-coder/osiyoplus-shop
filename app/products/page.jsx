@@ -14,10 +14,9 @@ export default function Products() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
-  // const [categoryProduct, setCategoryProduct] = useState();
   const [category, setCategory] = useState([]);
   const [ctgrId, setCtgrId] = useState();
-  const [categoryIdData, setCatgeroyIdData] = useState(null);
+  const [categoryIdData, setCatgeroyIdData] = useState([]);
   const [ctgTru, setCtgTru] = useState(false);
   const [ctgrName, setCtgrName] = useState();
   const [swiper, setSwiper] = useState(null);
@@ -76,11 +75,10 @@ export default function Products() {
 
   //////////// Get Category ////////////
   useEffect(() => {
-    const getCategory = () => {
+    const getCategory = async () => {
       try {
-        axios.get("http://localhost:1010/get_category").then((res) => {
-          setCategory(res.data);
-        });
+        const { data } = await axios.get("http://localhost:1010/get_category");
+        setCategory(data);
       } catch (error) {
         alert("Serverda xatolik yuz berdi :( ");
       }
@@ -91,17 +89,17 @@ export default function Products() {
   //////////// Get CategoryId ////////////
   const handleCategory = async (id) => {
     try {
-      const response = await axios.get(
+      const { data } = await axios.get(
         `http://localhost:1010/get_category_with_products/${id}`
       );
-      setCatgeroyIdData(response.data.Products);
-      setCtgTru(true);
+      setCatgeroyIdData(data.Products);
     } catch (error) {
       alert("Serverda xatolik yuz berdi");
+    } finally {
+      setCtgTru(true);
     }
   };
 
-  //
   return (
     <PageTransitionProvider>
       <main className="container max-w-1200 ">
