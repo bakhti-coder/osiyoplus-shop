@@ -223,7 +223,9 @@ const SingleProduct = () => {
           <div className="flex justify-start flex-wrap md:flex-nowrap ">
             <div data-aos="fade-up" className="max-w-[600px]">
               <Image
-                src={`http://localhost:1010${products?.pro_img}`}
+                src={`http://localhost:1010${products.pro_img ? "" : "/"}${
+                  products?.pro_img
+                }`}
                 width={1200}
                 height={500}
                 alt="img"
