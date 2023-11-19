@@ -16,7 +16,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 const SingleProduct = () => {
   const router = useRouter();
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("tokens");
   const [products, setProduct] = useState([]);
   const [pr, setPr] = useState([]);
   const [modalIsOpen, setIsOpen] = React.useState(false);

@@ -12,7 +12,7 @@ const Register = () => {
   const [buttonLoader, setButtonLoader] = useState(false);
 
   const isLocalStorageAvailable = typeof localStorage !== "undefined";
-  const token = isLocalStorageAvailable ? localStorage.getItem("token") : null;
+  const token = isLocalStorageAvailable ? localStorage.getItem("tokens") : null;
   if (token) {
     return router.push("/");
   }

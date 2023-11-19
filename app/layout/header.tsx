@@ -7,7 +7,7 @@ import Hamburger from "hamburger-react";
 export default function Header() {
   const isLocalStorageAvailable = typeof localStorage !== "undefined";
 
-  const token = isLocalStorageAvailable ? localStorage.getItem("token") : null;
+  const token = isLocalStorageAvailable ? localStorage.getItem("tokens") : null;
   const [open, setOpen] = useState(false);
   const [userOpen, setUserOpen] = useState(false);
 
@@ -16,7 +16,7 @@ export default function Header() {
   };
 
   const handleLogOut = () => {
-    localStorage.removeItem("token");
+    localStorage.removeItem("tokens");
     window.location.reload();
   };
 

@@ -6,7 +6,7 @@ import Image from "next/image";
 import { PageTransitionProvider } from "../components/page-transition";
 
 const Order = () => {
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("tokens");
   const [orderLoading, setOrderLoading] = useState(false);
   const [order, setOrder] = useState([]);
 

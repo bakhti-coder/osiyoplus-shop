@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -12,10 +12,11 @@ const Login = () => {
   const router = useRouter();
   const isLocalStorageAvailable = typeof localStorage !== "undefined";
 
-  const token = isLocalStorageAvailable ? localStorage.getItem("token") : null;
+  const token = isLocalStorageAvailable ? localStorage.getItem("tokens") : null;
   if (token) {
     return router.push("/");
   }
+
   const handleLogin = async (evt) => {
     evt.preventDefault();
     const { email, password } = evt.target.elements;
@@ -26,7 +27,7 @@ const Login = () => {
           buyer_password: password.value,
         })
         .then((res) => {
-          localStorage.setItem("token", res.data.token);
+          localStorage.setItem("tokens", res.data.token);
           console.log(res.data.token);
           toast.success("Muvaffaqiyatli ", { autoClose: 1000 });
           window.location.href = "/";
